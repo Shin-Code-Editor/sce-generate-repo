@@ -183,17 +183,6 @@ async function build() {
     await Promise.all(
       fs
         .readdirSync(ROOT_PATH)
-        .filter((item) => {
-          if (fs.existsSync(path.join(ROOT_PATH, item, "template")) === false) {
-            console.warn(
-              chalk.yellow(`${path.join(ROOT_PATH, item)} is not template`)
-            );
-
-            return false;
-          }
-
-          return true;
-        })
         .map(async (template: string): Promise<ReleaseJSON | void> => {
           template = path.join(ROOT_PATH, template);
 
