@@ -8,17 +8,16 @@ import fs from "fs-extra";
 import md5 from "md5-dir/promise";
 import { zip } from "zip-a-folder";
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { version } = require("../package.json");
+const version = "1.0.3";
 
 program.version(version);
 
 program
-  .option("-ts, --source <string>", "folder to put the sources", __dirname)
+  .option("-ts, --source <string>", "folder to put the sources", "./")
   .option(
     "-o, --output <string>",
     "directory where the .zip and release.json files are stored",
-    __dirname
+    "./"
   );
 
 program.parse(process.argv);
