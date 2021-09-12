@@ -1,6 +1,6 @@
 {
   "name": "sce-generate-repo",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "a typescript-starter project",
   "bin": {
     "sce-generate-repo": "./build/main/index.js",
