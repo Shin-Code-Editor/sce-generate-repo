@@ -23,7 +23,7 @@ program
 
 program.parse(process.argv);
 
-const { source: ROOT_PATH, output: DIST_PATH } = program.opts().source;
+const { source: ROOT_PATH, output: DIST_PATH } = program.opts();
 
 type ReleaseJSON = {
   readonly name: string;
