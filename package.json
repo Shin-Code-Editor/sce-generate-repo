@@ -1,6 +1,6 @@
 {
   "name": "sce-generate-repo",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a typescript-starter project",
   "bin": {
     "sce-generate-repo": "./build/main/index.js",
@@ -25,7 +25,6 @@
     "@types/node": "^16.9.1",
     "commander": "^8.2.0",
     "md5-dir": "^0.2.0",
-    "sce-generate-repo": "^1.0.2",
     "zip-a-folder": "^1.1.0"
   },
   "devDependencies": {
