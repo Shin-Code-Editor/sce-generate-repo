@@ -1,11 +1,8 @@
 {
   "name": "sce-generate-repo",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "a typescript-starter project",
-  "bin": {
-    "sce-generate-repo": "./build/main/index.js",
-    "sce-gen": "./build/main/index.js"
-  },
+  "bin": "./bin/cli.js",
   "typings": "build/main/index.d.ts",
   "repository": "https://github.com/shin-code-editor/sce-generate-repo",
   "license": "MIT",
