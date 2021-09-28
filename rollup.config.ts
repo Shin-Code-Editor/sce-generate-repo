@@ -18,7 +18,7 @@ export default {
   output: [
     {
       file: `bin/cli.js`,
-      format: "iife",
+      format: "cjs",
       plugins: [terser()],
       exports: "auto",
       banner: "#!/usr/bin/env node",
