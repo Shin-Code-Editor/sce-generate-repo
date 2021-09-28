@@ -19,6 +19,7 @@ export default {
       format: "cjs",
       plugins: [terser()],
       exports: "auto",
+      banner: "#!/usr/bin/env node"
     },
   ],
 };
