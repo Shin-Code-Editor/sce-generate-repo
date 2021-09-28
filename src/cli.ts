@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-
+import fsExtra from "fs-extra"
 import chalk from "chalk";
 import { program } from "commander";
 import md5 from "md5-dir/promise";
@@ -94,7 +94,7 @@ async function fixTemplate(template: string): Promise<ReleaseJSON> {
           path.relative(directoryName, path.join(directoryName, filename))
         );
 
-        await fs.promises.cp(
+        await fsExtra.copy(
           path.join(template, filename),
           path.join(DIST_PATH, directoryName, filename)
         );
@@ -108,7 +108,7 @@ async function fixTemplate(template: string): Promise<ReleaseJSON> {
           path.relative(directoryName, path.join(directoryName, filename))
         );
 
-        await fs.promises.cp(
+        await fsExtra.copy(
           path.join(template, filename),
           path.join(DIST_PATH, directoryName, filename)
         );
