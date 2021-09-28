@@ -1,19 +1,16 @@
-#!/usr/bin/env node
-
+import fs from "fs";
 import path from "path";
 
 import chalk from "chalk";
 import { program } from "commander";
-import fs from "fs-extra";
 import md5 from "md5-dir/promise";
 import { zip } from "zip-a-folder";
 
-const version = "1.0.3";
-
+const version = "0.0.0";
 program.version(version);
 
 program
-  .option("-ts, --source <string>", "folder to put the sources", "./")
+  .option("-s, --source <string>", "folder to put the sources", "./")
   .option(
     "-o, --output <string>",
     "directory where the .zip and release.json files are stored",
@@ -87,17 +84,17 @@ async function fixTemplate(template: string): Promise<ReleaseJSON> {
 
   await Promise.all(
     (
-      await fs.readdir(template)
+      await fs.promises.readdir(template)
     ).map(async (filename) => {
       if (
         /^image_/.test(filename) &&
-        (await fs.lstat(path.join(template, filename))).isFile()
+        (await fs.promises.lstat(path.join(template, filename))).isFile()
       ) {
         Release.images.push(
           path.relative(directoryName, path.join(directoryName, filename))
         );
 
-        await fs.copy(
+        await fs.promises.cp(
           path.join(template, filename),
           path.join(DIST_PATH, directoryName, filename)
         );
@@ -105,13 +102,13 @@ async function fixTemplate(template: string): Promise<ReleaseJSON> {
 
       if (
         /^icon_/.test(filename) &&
-        (await fs.lstat(path.join(template, filename))).isFile()
+        (await fs.promises.lstat(path.join(template, filename))).isFile()
       ) {
         Release.icons.push(
           path.relative(directoryName, path.join(directoryName, filename))
         );
 
-        await fs.copy(
+        await fs.promises.cp(
           path.join(template, filename),
           path.join(DIST_PATH, directoryName, filename)
         );
@@ -159,7 +156,10 @@ async function fixTemplate(template: string): Promise<ReleaseJSON> {
   }
 
   if (JSON.stringify(Release) !== JSON.stringify(ReleaseJSONFile)) {
-    await fs.outputFile(uriRelease, JSON.stringify(Release, undefined, "  "));
+    await fs.writeFileSync(
+      uriRelease,
+      JSON.stringify(Release, undefined, "  ")
+    );
     console.log(chalk.green(`${template}: Saved Release.json`));
   }
 
@@ -217,7 +217,10 @@ async function build() {
   newSort.push(...templateNotSort.map((item) => item.name));
 
   if (sort.join("\n") !== newSort.join("\n")) {
-    await fs.outputFile(path.join(ROOT_PATH, "sort.txt"), newSort.join("\n"));
+    await fs.promises.writeFile(
+      path.join(ROOT_PATH, "sort.txt"),
+      newSort.join("\n")
+    );
     console.log(chalk.green("Saved sort.txt"));
   }
 
@@ -227,7 +230,7 @@ async function build() {
     : {};
 
   if (JSON.stringify(oldRelease) !== JSON.stringify(templatesSorted)) {
-    await fs.outputFile(
+    await fs.promises.writeFile(
       uriReleaseJson,
       JSON.stringify(templatesSorted, undefined, "  ")
     );
